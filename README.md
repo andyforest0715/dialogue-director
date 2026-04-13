@@ -5,8 +5,8 @@
 
 | 智能体 | 职责 | 实现 |
 |---|---|---|
-| **χ Script Director** | 从剧本抽取角色 / 场景 / 对话三元组,补全视觉描述 | DeepSeek API,三阶段 LLM 调用 |
-| **Γ Cinematographer** | 文本 → 角色参考图 → 多视角肖像 + 场景背景板 | SD1.5 + ControlNet OpenPose + MV-Adapter SDXL |
+| **χ Script Director** | 从剧本抽取角色 / 场景 / 对话三元组,补全视觉描述 | 三阶段 LLM 调用 |
+| **Γ Cinematographer** | 文本 → 角色参考图 → 多视角肖像 + 场景背景板 | SD1.5 + ControlNet OpenPose + MV-Adapter |
 | **ζ Storyboard Maker** | 用 V-RAG 素材按电影构图模板合成最终分镜 | PIL + 确定性派发规则 |
 
 ## 架构
@@ -28,7 +28,7 @@ storyboards/  (5 shot 模板/scene + timeline.json)
 
 项目分两端运行:
 
-- **本地 (无 GPU)**: 跑 χ 和 ζ,Γ 使用 stub 占位图。需要 DeepSeek API key。
+- **本地 (无 GPU)**: 跑 χ 和 ζ,Γ 使用 stub 占位图。需要 LLM API key。
 - **云端 (有 GPU)**: 跑 Γ real 模式。需要 ~24GB VRAM (RTX 3090 / 4090),CUDA 12.x 或 13.x。
 
 ### 本地
