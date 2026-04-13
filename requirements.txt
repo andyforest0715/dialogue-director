@@ -1,0 +1,55 @@
+# Snapshot of GPU server pip freeze (compshare RTX 3090, 2026-04)
+#
+# 这是已经验证能跑通整个 cinematographer.py real backend 的精确版本组合。
+# 不用直接 pip install -r 这个文件 (会覆盖 torch),而是当兜底参考:
+
+# 锁回到这个版本来排错。
+#
+
+# 注意: torch / torchvision / nvidia-* 由镜像预装,不要从这里复制。
+
+# === LLM API ===
+openai>=1.0
+pydantic>=2.0
+
+# === 图像处理 ===
+Pillow
+rembg
+onnxruntime
+
+# === Diffusers 栈 ===
+diffusers==0.37.1
+transformers
+accelerate==1.13.0
+safetensors
+huggingface_hub==1.10.1
+hf-xet==1.4.3
+peft
+
+# === ControlNet 预处理 ===
+controlnet_aux==0.0.10
+
+# === MV-Adapter 间接依赖 ===
+einops==0.8.2
+omegaconf
+timm
+kornia==0.8.2
+kornia_rs==0.1.10
+scikit-image
+sentencepiece
+opencv-python
+trimesh
+jaxtyping==0.3.9
+imageio==2.37.3
+
+# === 系统/工具 ===
+filelock
+fsspec
+Jinja2
+MarkupSafe
+numpy
+contourpy
+fonttools
+cycler
+kiwisolver
+matplotlib  # 间接依赖,部分库需要
