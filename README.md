@@ -218,7 +218,3 @@ MV-Adapter 是 git clone 的 repo,不是 pip 包。subprocess 隔离了它的依
 - **MV-Adapter 朝向语义反直觉**: `front_right`(az=45) 实际脸朝左,`front_left`(az=315) 实际脸朝右。SHOTS 表里已经做了反向映射
 - **shot 3/4 暂未派发**: 模板生成但未被 timeline 使用,留给未来 LLM 选 shot 升级
 - **Hunyuan3D-1 没接**: 双人简版用不到斜背视角,代码里保留接口签名
-
-## License
-
-MIT
