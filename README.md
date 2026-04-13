@@ -24,6 +24,12 @@ V-RAG: vrag/{characters,places}/  (6 视角角色 + 场景 plate + meta.json)
 storyboards/  (5 shot 模板/scene + timeline.json)
 ```
 
+## 版本迭代规划
+✅dialogue director论文实现
+➡️换更先进的生图模型
+➡️可视化调整人物
+
+
 ## 依赖
 
 项目分两端运行:
@@ -48,11 +54,10 @@ pip install -r requirements.txt
 | PyTorch | 2.9.1+cu130 |
 | CUDA Toolkit | 13.0 |
 | GPU | RTX 3090 24GB |
-| 驱动 | 580.105.08 |
 
 **注意**:
 
-1. **不要 `pip install torch`** — 用云镜像预装的 PyTorch,版本对硬件已经匹配
+1. **不要 `pip install torch`** — 用云镜像预装的 PyTorch
 2. **装其他依赖前先快照 torch 版本**,装完检查没被覆盖:
    ```bash
    pip freeze | grep -iE '^(torch|nvidia)' > /tmp/before.txt
@@ -63,15 +68,13 @@ pip install -r requirements.txt
 3. **PyTorch 2.x 任意小版本都能跑**,只要跟 CUDA 大版本匹配 (cu118 / cu121 / cu124 / cu128 / cu130 都行)
 
 ```bash
-pip install -r requirements-gpu.txt
+pip install -r requirements.txt
 ```
 
 ### Python 版本
 
 | Python | 状态 |
 |---|---|
-| 3.10 | 应该能跑 (未测) |
-| 3.11 | 应该能跑 (未测) |
 | **3.12** | **实测通过** |
 | 3.13 | 不建议 (部分 ML 库还没适配) |
 
@@ -182,10 +185,6 @@ outputs/sample/
 **为什么角色和场景分开生成再合成?**
 
 之前踩过的坑: 端到端"角色 + 场景"一起生时,角色大小不一致,合成出来比例错乱。改成方案 b: 角色生头肩证件照 → rembg 抠图 → 记录 bbox → ζ 合成时按 `char_height_px` **确定性缩放**。从源头消除 scale 飘移。
-
-**为什么 Γ 用 subprocess 调 MV-Adapter 而不是 import?**
-
-MV-Adapter 是 git clone 的 repo,不是 pip 包。subprocess 隔离了它的依赖环境,避免 import 路径地狱;每次调用的冷启动开销 (~10s) 跟扩散本身 (1-3 分钟) 比起来可忽略。
 
 **为什么 SHOTS 模板硬编码而不是 LLM 选?**
 
